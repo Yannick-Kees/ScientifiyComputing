@@ -1,1 +1,89 @@
 # ScientifiyComputing
+\documentclass[11pt, a4paper, german]{article}
+\usepackage[utf8]{inputenc}
+\usepackage[T1]{fontenc}
+\usepackage{amsmath}
+\usepackage{amsthm}
+\usepackage{amsfonts}
+\usepackage[most]{tcolorbox}
+\newcounter{testexample}
+\usepackage{xparse}
+\usepackage{vietnam}
+\usepackage{harmony}
+\usepackage{varwidth}
+\usepackage{color}
+\usepackage{amssymb}
+\usepackage{float}
+\usepackage{fancyhdr}
+\usepackage{stmaryrd}
+\usepackage{enumerate}
+\usepackage{graphicx}
+\usepackage{enumitem}
+
+\usepackage[left=2cm,right=2cm,top=2cm,bottom=2cm]{geometry}
+
+\usepackage[ngerman]{babel}
+
+\begin{document}
+\begin{center}
+
+{\huge Sheet 1 - Scientific Computing 1 } 
+\vspace*{1\baselineskip}\\ 
+\small{\today}
+\vspace*{1\baselineskip}\\
+
+{\small Felix Blanke, Yannick Kees}
+\vspace*{1\baselineskip}\\
+% die Namen hier
+
+\end{center}
+	\section*{Exercise 3}
+	\textit{Show that the two dimensional Laplace operator in polar coordinates has the form}\begin{align*}
+		\Delta u(r,\phi )=\frac{1}{r}\frac{\partial}{\partial r}\left(r u_r \right)+\frac{1}{r^2}u_{\phi\phi}
+	\end{align*}
+	First we see that\begin{align*}
+		D{x(r,\phi)\choose y(r,\phi)}=D{r\cos(\phi)\choose r\sin(\phi)}=\begin{pmatrix}
+			\cos(\phi) & -r\sin(\phi)  \\ \sin(\phi) & r\cos(\phi)
+		\end{pmatrix}
+	\end{align*}
+	Now we can compute the second derivatives with the chain rule\begin{align*}
+		u_{rr}&=\frac{\partial}{\partial r}\left( u_xx_r+u_yy_r \right)\\
+		&=\frac{\partial}{\partial r}\left( u_x\cos(\phi) +u_y\sin(\phi) \right)\\
+		&=  \cos(\phi)\left(u_{xx}x_r+u_{uy}y_r \right) +\sin(\phi)\left(u_{yx}x_r+u_{yy}y_r \right) \\
+		&=\cos^2(\phi) u_{xx}+2\cos(\phi)\sin(\phi)u_{xy}+\sin^2(\phi)u_{yy}
+	\end{align*}
+	and\begin{align*}
+		&&u_{\phi\phi}&=\frac{\partial}{\partial \phi}\left( u_xx_\phi+u_yy_\phi \right)\\
+		&&&=\frac{\partial}{\partial \phi}\left( -r\sin(\phi)u_x+r\cos(\phi)u_y \right) \\
+		&&&= -r\cos(\phi)u_x-r\sin(\phi)u_{x\phi}-r\sin(\phi)u_{y}+r\cos(\phi)u_{y\phi}  \\
+		&&&= -r\cos(\phi)u_x-r\sin(\phi)(u_{xx}x_{\phi}u_{xy}y_\phi)-r\sin(\phi)u_{y}+r\cos(\phi)(u_{xy}x_\phi+u_{yy}y_\phi)  \\
+		&&&=-r\underbrace{(\cos(\phi)u_x+\sin(\phi)u_y)}_{=u_r}+r^2\left( \sin^2(\phi)u_{xx}-2\cos(\phi)\sin(\phi)u_{xy}+\cos^2(\phi)u_{yy} \right)\\
+		& \Leftrightarrow& \frac{1}{r^2}u_{\phi\phi}&=-\frac{1}{r}u_r+\sin^2(\phi)u_{xx}-2\cos(\phi)\sin(\phi)u_{xy}+\cos^2(\phi)u_{yy}
+	\end{align*}
+	By adding both we obtain\begin{align*}
+		&&u_{rr}+\frac{1}{r^2}u_{\phi\phi}&=-\frac{1}{r}u_r+u_{xx}+u_{yy}\\
+		&\Leftrightarrow & \Delta u(r,\phi )&=\frac{1}{r}\frac{\partial}{\partial r}\left(r u_r \right)+\frac{1}{r^2}u_{\phi\phi}
+	\end{align*}
+	\qed
+	\section*{Exercise 4}
+	\textit{Solve the Laplace equation on the unit disk with boundary conditions $u_r=g$ where $g$ is given as Fourier expansion.	\begin{align*}
+		g(\cos(\phi),\sin(\phi)):=\alpha_0+\sum_k r^k(\alpha_k\cos(k\phi)+\beta_k\sin(k\phi))
+	\end{align*}
+	}
+	We need to show that\begin{align*}
+		u(r\cos(\phi),r\sin(\phi))=a_0+\sum_k r^k(a_k\cos(k\phi)+b_k\sin(k\phi))
+	\end{align*}
+	fulfills the Laplace equation. Because of exercise three we can confirm that\begin{align*}
+	 \Delta u(r,\phi )&=\frac{1}{r}\frac{\partial}{\partial r}\left(r u_r \right)+\frac{1}{r^2}u_{\phi\phi}\\
+	&= \frac{1}{r}\frac{\partial}{\partial r}\sum_k kr^k(a_k\cos(k\phi)+b_k\sin(k\phi))-\frac{1}{r^2}\sum_k k^2r^k(a_k\cos(k\phi)+b_k\sin(k\phi))\\
+	&=\sum_k k^2 r^{k-2}(a_k\cos(k\phi)+b_k\sin(k\phi))-\sum_k k^2r^{k-2}(a_k\cos(k\phi)+b_k\sin(k\phi))\\
+	&= 0
+	\end{align*}
+	Now we need to make sure, that the boundary condition fits. We need that\begin{align*}
+		u_r=\sum_k kr^{k-1}(a_k\cos(k\phi)+b_k\sin(k\phi))\overset{!}{=}\alpha_0+\sum_k r^k(\alpha_k\cos(k\phi)+\beta_k\sin(k\phi))
+	\end{align*}
+	for $r=1$, so we choose\begin{align*}
+		\alpha_k=\frac{a_k}{k}&& \beta_k=\frac{b_k}{k}
+	\end{align*}
+	\qed
+\end{document}
